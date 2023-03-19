@@ -9,21 +9,22 @@ Welcome to the **Sparkle rest** API, built with Spring Boot 2.7.9 and Java 11. T
 - Java 11 
 - Maven 3 
 - PostgreSql
+- Docker
 
 ### Installation
 
 1. Clone the repository: `git clone <repository url>`
 2. Install dependencies: `mvn install`
+3. Run docker-compose -f docker-compose-postgreOnly up
 3. Start the server: `mvn spring-boot:run`
-4. Navigate to `http://localhost:8080/api/v1` in your web browser to access the API documentation.
+4. Navigate to `http://localhost:8085` in your web browser to access the API documentation.
 
 ## API Documentation
 
 The **<project name>** API has the following endpoints:
 
-- `/api/v1/<endpoint1>` - <brief description of endpoint1>
-- `/api/v1/<endpoint2>` - <brief description of endpoint2>
-- `/api/v1/<endpoint3>` - <brief description of endpoint3>
+- `/api/v1/companies/list` - List of all companies
+
 
 Please refer to the API documentation for detailed information on each endpoint.
 
@@ -33,7 +34,7 @@ Please refer to the API documentation for detailed information on each endpoint.
 
 - Spring Boot 2.7.9
 - Java 11
-- MySQL
+
 
 ### Contributing
 
@@ -56,16 +57,9 @@ The **<project name>** API is deployed using Docker and Kubernetes. To deploy th
 1. Install Docker and Kubernetes on your server.
 2. Build a Docker image: `docker build -t <image name> .`
 3. Push the Docker image to a Docker registry: `docker push <image name>`
-4. Deploy the Kubernetes deployment and service files: `kubectl apply -f deployment.yaml` and `kubectl apply -f service.yaml`
-5. Access the API using the Kubernetes service IP address.
+
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
-
-We would like to thank the following people and organizations for their contributions to this project:
-
-- <name1> from <organization1>
-- <name2> from <organization2>
