@@ -11,11 +11,14 @@ public interface CategoryService {
 
    CategoryDto save(CategoryDto categoryDto);
 
-//    CategoryDTO update(CategoryDTO categoryDTO);
-//
-//    void delete(Long id);
-//
-//    List<CategoryDTO> listAllCategory();
+    void  update(Long id, CategoryDto categoryDto);
+
+    void delete(Long id);
+
+    List<CategoryDto> listAllCategory();
+
+
+
 //
 //    boolean isCategoryExist(CategoryDTO categoryDTO, CompanyDTO companyDTO);
 

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -20,6 +22,16 @@ public class CategoryController {
     }
 
 
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> getAllCategories(){
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .header("Version", "Cydeo.V2")
+                .header("Operation", "Get List")
+                .body(categoryService.listAllCategory());
+    }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable String id) {
@@ -28,11 +40,23 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
-        return ResponseEntity.ok(categoryService.save(categoryDto));
-
-
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("Operation", "Create")
+                .body(categoryService.save(categoryDto));
 
     }
+    @PutMapping("{id}")
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable ("id") Long id, @RequestBody CategoryDto category){
+        categoryService.update(id, category);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<CategoryDto> deleteCategory(@PathVariable("id") Long id){
+        categoryService.delete(id);
+        return  ResponseEntity.noContent().build();
+    }
+
 
 }
 

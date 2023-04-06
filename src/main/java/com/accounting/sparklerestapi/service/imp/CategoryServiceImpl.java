@@ -7,9 +7,11 @@ import com.accounting.sparklerestapi.service.CategoryService;
 import com.accounting.sparklerestapi.util.MapperUtil;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -31,63 +33,36 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
-        return null;
+    public CategoryDto save(CategoryDto categoryDto) {//
+        categoryRepository.save(mapperUtil.convert(categoryDto, new Category()));
+        return categoryDto;
     }
 
+    @Override
+    public void update(Long id, CategoryDto categoryDto) {
+        Category category = mapperUtil.convert(categoryDto, new Category());
 
-//
-//    @Override
-//    public CategoryDto save(CategoryDto categoryDTO) {
-//        CompanyDto companyDto = companyService.getCompanyByLoggedInUser();
-//        categoryDTO.setCompany(companyDTO);
-//        Category category = mapperUtil.convert(categoryDTO, new Category());
-//        List<Category> list = categoryRepository.findAllByIsDeletedAndCompanyId(false, companyDto.getId());
-//        List<String> descList1 = list.stream().map(Category::getDescription).collect(Collectors.toList());
-//        List<String> descList=descList1.stream().map(String::toLowerCase).collect(Collectors.toList());
-//        Category savedCategory;
-//        if (!(descList.contains(category.getDescription().toLowerCase()))) {
-//            savedCategory = categoryRepository.save(category);
-//            return mapperUtil.convert(savedCategory, new CategoryDto());
-//        } else{
-//            return categoryDTO;
-//        }
+        categoryRepository.findById(id).ifPresent(dbCategory -> {
+            dbCategory.setDescription(category.getDescription());
+            dbCategory.setCompany(category.getCompany());
+            categoryRepository.save(dbCategory);
+        });
 
     }
-//
-//
-//
-//
-//    @Override
-//    public CategoryDTO update(CategoryDTO categoryDTO) {
-//
-//        CompanyDTO companyDTO = companyService.getCompanyByLoggedInUser();
-//        categoryDTO.setCompany(companyDTO);
-//
-//        Category convertedCategory = mapperUtil.convert(categoryDTO, new Category());
-//        convertedCategory.setId(categoryDTO.getId());
-//        Category updatedCategory = categoryRepository.save(convertedCategory);
-//
-//        return mapperUtil.convert(updatedCategory, new CategoryDTO());
-//
-//
-//    }
-//
-//    @Override
-//    public void delete(Long id) {
-//
-//        Optional<Category> foundCategory = categoryRepository.findById(id);
-//        boolean result = checkIfCategoryCanBeDeleted(foundCategory.get());
-//        if (result) {
-//            foundCategory.get().setIsDeleted(true);
-//            categoryRepository.save(foundCategory.get());
-//        } else {
-//            CategoryDTO categoryDTO = mapperUtil.convert(foundCategory.get(), new CategoryDTO());
-//            categoryDTO.setHasProduct(true);
-//        }
-//
-//
-//    }
+
+    @Override
+    public void delete(Long id) {
+        categoryRepository.delete(new Category());
+
+
+    }
+
+    @Override
+    public List<CategoryDto> listAllCategory() {
+        List<Category> list= categoryRepository.findAll();
+        return list.stream().map(category -> mapperUtil.convert(category, new CategoryDto()))
+                .collect(Collectors.toList());
+    }
 //
 //    @Override
 //    public List<CategoryDTO> listAllCategory() {
@@ -124,8 +99,8 @@ public class CategoryServiceImpl implements CategoryService {
 //
 //
 //        }
-//
-//
-//    }
+
+
+    }
 
 
