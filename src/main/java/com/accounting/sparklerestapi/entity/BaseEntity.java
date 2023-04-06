@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private LocalDateTime insertDataTime;
-    public long insertUserId;
+    public Long insertUserId;
     public LocalDateTime lastUpdateDataTime;
     public Long lastUpdateUserId;
     private boolean isDeleted = false;
