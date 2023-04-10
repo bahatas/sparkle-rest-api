@@ -1,3 +1,5 @@
+create schema if not exists public;
+
 create table if not exists public.addresses
 (
     id                    bigserial
@@ -196,4 +198,3 @@ create table if not exists public.users
 
 alter table public.users
     owner to postgres;
-
