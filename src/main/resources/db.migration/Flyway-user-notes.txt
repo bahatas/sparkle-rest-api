@@ -1,0 +1,13 @@
+>> If you have any experience just add them to here:
+
+If you want to change something on database you can not change those queries under flyway folder and related file anymore.
+If you change something on queries that will throw exception :"Migration description mismatch for migration version .. "
+** So:
+- Need to drop db and create again.
+- Create upper version of file not change file names or content itself
+
+**If you want to change something on database please fallow naming convention: V26__create_tables.sql,V27__create_tables.sql
+And your file with version and sql code. That is enough.
+
+** If you have problem about database just right click over schema and DROP with CASCADE it.
+
